@@ -73,7 +73,9 @@ class DatabaseSeeder extends Seeder
       ]);
 
       $book = \App\Models\Book::factory(100)->create();
+
       $categories = \App\Models\Category::all();
+      
       $book->each(function ($book) use ($categories) {
           $book->categories()->attach(
               $categories->random(rand(1,2))->pluck('id')->toArray()
