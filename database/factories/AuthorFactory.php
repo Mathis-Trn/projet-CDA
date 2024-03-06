@@ -18,6 +18,7 @@ class AuthorFactory extends Factory
     {
         return [
             'name' => fake()->company(),
+            'email' => fake()->unique()->safeEmail(),
             'adresse' => fake()->address(),
             'description' => fake()->text(),
         ];
