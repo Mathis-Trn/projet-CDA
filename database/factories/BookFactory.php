@@ -18,6 +18,7 @@ class BookFactory extends Factory
     {
         return [
             'editor_id' => fake()->numberBetween(1, 10),
+            'author_id' => fake()->numberBetween(1, 10),
             'name' => fake()->words(2, true),
             'description' => fake()->text(),
             'stock' => fake()->numberBetween(1, 100),
