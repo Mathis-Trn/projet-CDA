@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('book', function (Blueprint $table) {
+        Schema::table('books', function (Blueprint $table) {
             $table->timestamp("published_at")->nullable()->after('description');
         });
     }
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('book', function (Blueprint $table) {
-            //
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropColumn("published_at");
         });
     }
 };
