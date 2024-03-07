@@ -16,9 +16,9 @@ class BorrowedItem extends Model
         "book_return"
     ];
 
-    public function order(): BelongsTo
+    public function borrowed(): BelongsTo
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Borrowed::class);
     }
 
     public function book(): BelongsTo
