@@ -7,10 +7,15 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
+
     <div id="app">
 
-        <users-list />
+        <app-navbar></app-navbar>
+
         @yield('content')
+
+        <app-footer></app-footer>
+
     </div>
 </body>
 </html>
