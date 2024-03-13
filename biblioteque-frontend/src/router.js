@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 
-import Books from './components/Books.vue';
-import BookDetails from './components/BookDetails.vue';
-import AddBook from './components/AddBook.vue';
-import EditBook from './components/EditBook.vue';
-import Login from './components/Login.vue';
-import Register from './components/Register.vue';
+
+import CreateBook from './components/book/CreateBook.vue';
+import ShowBook from './components/book/ShowBook.vue';
+import Login from './components/user/Login.vue';
+import Register from './components/user/Register.vue';
+import EditBook from './components/book/EditBook.vue';
+import Books from './components/templates/Books.vue';
 
 
 const routes = [
@@ -17,15 +18,15 @@ component: Books,
 meta: { public: false }
 },
 {
-path: '/books/:id',
-name: 'BookDetails',
-component: BookDetails,
+path: '/book/:id',
+name: 'ShowBook',
+component: ShowBook,
 meta: { public: false }
 },
 {
-path: '/add-book',
-name: 'AddBook',
-component: AddBook,
+path: '/create-book',
+name: 'CreateBook',
+component: CreateBook,
 meta: { public: false }
 },
 {
@@ -35,14 +36,14 @@ component: EditBook,
 meta: { public: false }
 },
 {
-path: '/connexion', 
-name: 'Connexion',
+path: '/login', 
+name: 'Login',
 component: Login,
 meta: { public: true } 
 },
 {
-path: '/inscription',
-name: 'Inscription',
+path: '/register',
+name: 'Register',
 component: Register,
 meta: { public: true }
 }
