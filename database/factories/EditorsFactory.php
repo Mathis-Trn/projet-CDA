@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class EditorFactory extends Factory
+class EditorsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,7 @@ class EditorFactory extends Factory
         return [
             'name' => fake()->company(),
             'email' => fake()->unique()->safeEmail(),
-            'adresse' => fake()->address(),
+            'adress' => fake()->address(),
             'description' => fake()->text(),
         ];
     }

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role', 20)->after('remember_token')->default('free');
+            $table->string('role_id', 20)->after('remember_token')->default(1);
         });
     }
 

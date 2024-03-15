@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
     \App\Models\User::factory(50)->create();
 
     // On génère 10 éditeurs
-    \App\Models\Editor::factory(10)->create();
+    \App\Models\Editors::factory(10)->create();
 
     // On génère 10 auteurs 
-    \App\Models\Author::factory(10)->create();
+    \App\Models\Authors::factory(10)->create();
 
     // On génère des catégories
     \App\Models\Category::factory()->create([
@@ -72,12 +72,12 @@ class DatabaseSeeder extends Seeder
         'color' => '#E74C3C',
       ]);
 
-      $book = \App\Models\Book::factory(100)->create();
+      $books = \App\Models\Books::factory(100)->create();
 
       $categories = \App\Models\Category::all();
       
-      $book->each(function ($book) use ($categories) {
-          $book->categories()->attach(
+      $books->each(function ($books) use ($categories) {
+          $books->categories()->attach(
               $categories->random(rand(1,2))->pluck('id')->toArray()
           );
       });

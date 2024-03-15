@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Author;
-use App\Models\Editor;
+use App\Models\Authors;
+use App\Models\Editors;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class BookFactory extends Factory
+class BooksFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,8 +19,8 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'editor_id' => Editor::all()->random()->id,
-            'author_id' => Author::all()->random()->id,
+            'editor_id' => Editors::all()->random()->id,
+            'author_id' => Authors::all()->random()->id,
             'name' => fake()->words(2, true),
             "cover" => fake()->imageUrl(640, 480, "book", true),
             'description' => fake()->text(1000),
