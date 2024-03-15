@@ -23,6 +23,6 @@ class BorrowedItem extends Model
 
     public function book(): BelongsTo
     {
-        return $this->belongsTo(Book::class);
+        return $this->belongsTo(Books::class);
     }
 }

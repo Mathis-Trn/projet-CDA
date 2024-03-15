@@ -17,7 +17,7 @@ class Books extends Model
 
     public function editor(): BelongsTo
     {
-        return $this->belongsTo(Editor::class); 
+        return $this->belongsTo(Editors::class); 
     }
 
     public function author(): BelongsTo
