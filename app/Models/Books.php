@@ -22,7 +22,7 @@ class Books extends Model
 
     public function author(): BelongsTo
     {
-        return $this->belongsTo(Author::class); 
+        return $this->belongsTo(Authors::class); 
     }
 
     public function categories(): BelongsToMany

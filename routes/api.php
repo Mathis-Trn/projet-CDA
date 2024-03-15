@@ -1,14 +1,17 @@
 <?php
 
-
+use App\Http\Controllers\Api\Authors\AuthorController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Api\Book\BookController;
+use App\Http\Controllers\Api\Books\BookController;
 use App\Http\Controllers\Api\User\IndexController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //--- BOOK ---//
 Route::apiResource('books', BookController::class);
+
+//--- AUTHOR ---//
+Route::apiResource('authors', AuthorController::class);
 
 Route::get('users', IndexController::class);
 
