@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api\Books;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Book\CreateBookRequest;
+use App\Http\Requests\Book\UpdateBookRequest;
 use App\Models\Books;
+use Exception;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -11,27 +14,72 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $book = Books::all();
-        return response()->json($book, 200);
+
+        try {
+
+            $query = Books::query();
+            $perPage = 10;
+            $page = $request->input('page', 1);
+            $search = $request->input('search');
+
+            if ($search) {
+                $query->whereRaw("name LIKE '%" . $search . "%'");
+            }
+
+            $total = $query->count();
+
+            $result = $query->offset(($page - 1) * $perPage)->limit($perPage)->get();
+
+
+            $book = Books::all();
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Les livres ont été récupérés avec succès',
+                'current_page' => $page,
+                'last_page' => ceil($total / $perPage),
+                'items' => $result
+            ]);
+        } catch (Exception $e) {
+
+            return response()->json([
+                'status_code' => 500,
+                'status_message' => $e->getMessage()
+            ]);
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateBookRequest $request)
     {
-        $book = new Books;
-        $book->editor_id =$request->editor_id;
-        $book->author_id =$request->author_id;
-        $book->name =$request->name;
-        $book->cover =$request->cover;
-        $book->description =$request->description;
-        $book->published_at =$request->published_at;
-        $book->stock =$request->stock; 
-        $book->save();
-        return response()->json(["message"=>"Livre ajouté"], 201);
+        try {
+
+            $book = new Books;
+
+            $book->editor_id = $request->editor_id;
+            $book->author_id = $request->author_id;
+            $book->name = $request->name;
+            $book->cover = $request->cover;
+            $book->description = $request->description;
+            $book->published_at = $request->published_at;
+            $book->stock = $request->stock;
+
+            $book->save();
+
+            return response()->json([
+                'status_code' => 201,
+                'status_message' => "Livre ajouté"
+            ]);
+        } catch (Exception $e) {
+
+            return response()->json([
+                'status_code' => 500,
+                'status_message' => $e->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -39,40 +87,71 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $book = Books::find($id);
-        if (!empty($book)) 
-        {
-            return response()->json($book, 200);
-        } 
-        else 
-        {
-            return response()->json(['message' => 'Livre non trouvé'], 404);
+        try {
+
+            $book = Books::find($id);
+
+            if (!empty($book)) {
+
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Livre affiché',
+                    'item' => $book
+                ]);
+            } else {
+
+                return response()->json([
+                    'status_code' => 404,
+                    'status_message' => 'Livre non trouvé'
+                ]);
+            }
+        } catch (Exception $e) {
+
+            return response()->json([
+                'status_code' => 500,
+                'status_message' => $e->getMessage()
+            ]);
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdateBookRequest $request, $id)
     {
-        if(Books::where('id', $id)->exists()) 
-        {
-            $book = Books::find($id);
-            $book->editor_id =is_null($request->editor_id) ? $book->editor_id : $request->editor_id;
-            $book->author_id =is_null($request->author_id)? $book->author_id : $request->author_id;
-            $book->name =is_null($request->name)? $book->name : $request->name;
-            $book->cover =is_null($request->cover)? $book->cover : $request->cover;
-            $book->description =is_null($request->description)? $book->description : $request->description;
-            $book->published_at =is_null($request->published_at)? $book->published_at : $request->published_at;
-            $book->stock = is_null($request->stock)? $book->stock : $request->stock;
-            $book->save();
+        try {
 
-            return response()->json(["message" => "Livre modifié"], 201);
+            if (Books::where('id', $id)->exists()) {
 
-        }
-        else 
-        {
-            return response()->json(['message' => 'Livre non trouvé'], 404);
+                $book = Books::find($id);
+
+                $book->editor_id = is_null($request->editor_id) ? $book->editor_id : $request->editor_id;
+                $book->author_id = is_null($request->author_id) ? $book->author_id : $request->author_id;
+                $book->name = is_null($request->name) ? $book->name : $request->name;
+                $book->cover = is_null($request->cover) ? $book->cover : $request->cover;
+                $book->description = is_null($request->description) ? $book->description : $request->description;
+                $book->published_at = is_null($request->published_at) ? $book->published_at : $request->published_at;
+                $book->stock = is_null($request->stock) ? $book->stock : $request->stock;
+
+                $book->save();
+
+                return response()->json([
+                    'status_code' => 201,
+                    'status_message' => 'Livre modifié'
+                ]);
+            } else {
+
+                return response()->json([
+                    'status_code' => 404,
+                    'status_message' => 'Livre non trouvé'
+                ]);
+            }
+        } catch (Exception $e) {
+
+            return response()->json([
+                'status_code' => 500,
+                'status_message' => $e->getMessage()
+            ]);
         }
     }
 
@@ -81,13 +160,30 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        if (Books::where('id', $id)->exists()) {
-            $book = Books::find($id);
-            $book->delete();
-           
-            return response()->json(["message" => "Livre supprimé", 202]);
-        } else {
-            return response()->json(['message' => 'Livre non trouvé'], 404);
+        try {
+
+            if (Books::where('id', $id)->exists()) {
+
+                $book = Books::find($id);
+                $book->delete();
+
+                return response()->json([
+                    'status_code' => 202,
+                    'status_message' => 'Livre supprimé'
+                ]);
+            } else {
+
+                return response()->json([
+                    'status_code' => 404,
+                    'status_message' => 'Livre non trouvé'
+                ]);
+            }
+        } catch (Exception $e) {
+
+            return response()->json([
+                'status_code' => 500,
+                'status_message' => $e->getMessage()
+            ]);
         }
     }
 }
