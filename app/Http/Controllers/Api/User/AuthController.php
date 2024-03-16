@@ -1,51 +1,68 @@
 <?php
-namespace App\Http\Controllers;
 
-use Illuminate\Http\Request; 
+namespace App\Http\Controllers\Api\User;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\User\LoginUserRequest;
+use App\Http\Requests\User\RegisterUserRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Exception;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-  public function register(Request $request)
+  public function register(RegisterUserRequest $request)
   {
-    $request->validate([
-      'name' => 'required|string|max:255', 
-      'email' => 'required|string|email|max:255|unique:users',
-      'password' => 'required|string|min:6', 
-    ]);
+    try {
 
-    $user = User::create([
-      'name' => $request->name,
-      'email' => $request->email,
-      'password' => bcrypt($request->password),
-    ]);
+      $user = new User();
 
-    return response()->json(['user' => $user], 201);
+      $user->name = $request->name;
+      $user->email = $request->email;
+
+      $user->password = Hash::make($request->password, [
+        'rounds' => 12,
+      ]);
+
+      $user->save();
+
+      return response()->json([
+        'status_code' => 200,
+        'status_message' => 'Utilisateur ajouté avec succès',
+        'user' => $user
+      ]);
+    } catch (Exception $e) {
+
+      return response()->json($e);
+    }
   }
 
-  public function login(Request $request)
+  public function login(LoginUserRequest $request)
   {
-    $request->validate([
-      'email' => 'required|string|email',
-      'password' => 'required|string',
-    ]);
+    if (auth()->attempt($request->only('email', 'password'))) {
 
-    if (!Auth::attempt($request->only('email', 'password'))) {
-      return response()->json(['message' => 'Email ou mot de passe incorrect'], 401);
+      $user = auth()->user();
+
+      $token = $user->createToken('UNE_SALADE_DE_FRUIT_EST_TOUJOURS_MEILLEURE_AVEC_DES_KIWIS')->plainTextToken;
+
+      return response()->json([
+        'status_code' => 200,
+        'status_message' => 'Utilisateur connecté avec succès',
+        'user' => $user,
+        'token' => $token
+      ]);
+    } else {
+
+      return response()->json([
+        'status_code' => 403,
+        'status_message' => 'Adresse email ou mot de passe incorrect'
+      ]);
     }
-
-    $user = $request->user();
-
-    $token = $user->createToken('authToken')->plainTextToken;
-
-    return response()->json(['user' => $user, 'token' => $token]);
   }
 
   public function logout(Request $request)
   {
-    $request->user()->tokens()->delete();
-
-    return response()->json(['message' => 'Logged out']);
   }
 }
