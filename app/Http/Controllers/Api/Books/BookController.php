@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api\Books;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Book\CreateBookRequest;
-use App\Http\Requests\Book\UpdateBookRequest;
+use App\Http\Requests\BookRequest;
 use App\Models\Books;
 use Exception;
 use Illuminate\Http\Request;
@@ -32,8 +31,8 @@ class BookController extends Controller
 
             $result = $query->offset(($page - 1) * $perPage)->limit($perPage)->get();
 
-
             $book = Books::all();
+            
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Les livres ont été récupérés avec succès',
@@ -53,7 +52,7 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateBookRequest $request)
+    public function store(BookRequest $request)
     {
         try {
 
@@ -117,7 +116,7 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBookRequest $request, $id)
+    public function update(BookRequest $request, $id)
     {
         try {
 

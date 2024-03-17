@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api\Editors;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Editor\CreateEditorRequest;
-use App\Http\Requests\Editor\UpdateEditorRequest;
+use App\Http\Requests\EditorRequest;
 use App\Models\Editors;
 use Exception;
 
@@ -33,7 +32,7 @@ class EditorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateEditorRequest $request)
+    public function store(EditorRequest $request)
     {
         try {
 
@@ -93,7 +92,7 @@ class EditorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEditorRequest $request, $id)
+    public function update(EditorRequest $request, $id)
     {
         try {
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LoginUserRequest extends FormRequest
+class AuthorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class LoginUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required|string'
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
         ];
     }
 
@@ -33,7 +33,6 @@ class LoginUserRequest extends FormRequest
     {
         throw new HttpResponseException(response()->json([
             'success' => false,
-            'status_code' => 422,
             'errors' => true,
             'message' => 'Erreur de validation',
             'errorsList' => $validator->errors()
@@ -44,10 +43,12 @@ class LoginUserRequest extends FormRequest
     {
 
         return [
-            'email.required' => 'L\'email doit être fourni',
-            'email.email' => 'Adresse email ou mot de passe incorrect',
-            'email.exists' => 'Adresse email ou mot de passe incorrect',
-            'password.required' => 'Le mot de passe doit être fourni',
+            'name.required' => 'Le nom est obligatoire',
+            'name.string' => 'Le nom doit être une chaîne de caractères',
+            'name.max' => 'Le nom ne doit pas dépasser 255 caractères',
+            'description.required' => 'La description est obligatoire',
+            'description.string' => 'La description doit être une chaîne de caractère',
+            'description.max' => 'La description ne doit pas dépasser 255 caractères',
         ];
     }
 }
