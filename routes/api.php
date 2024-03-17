@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 //--- BOOK ---//
 Route::get('/', [BookController::class, 'index']);
+Route::get('/recherche', [BookController::class, 'index']);
 Route::get('/book/{book}', [BookController::class, 'show']);
 
 //--- AUTHOR ---//
@@ -22,21 +23,21 @@ Route::middleware(['auth:sanctum', 'checkUserRole'])->group(function() {
 
     Route::post('/book/create', [BookController::class,'store']);
     Route::put('/book/edit/{book}', [BookController::class, 'update']);
-    Route::delete('/book/{book}', [BookController::class, 'destroy']);
+    Route::delete('/book/delete/{book}', [BookController::class, 'destroy']);
 
     //--- AUTHOR ---//
 
     Route::get('/authors', [AuthorController::class, 'index']);
     Route::post('/author/create', [AuthorController::class,'store']);
     Route::put('/author/edit/{author}', [AuthorController::class, 'update']);
-    Route::delete('/author/{author}', [AuthorController::class, 'destroy']);
+    Route::delete('/author/delete/{author}', [AuthorController::class, 'destroy']);
 
     //--- EDITOR ---//
 
     Route::get('/editors', [EditorController::class, 'index']);
     Route::post('/editor/create', [EditorController::class,'store']);
     Route::put('/editor/edit{editor}', [EditorController::class, 'update']);
-    Route::delete('/editor/{editor}', [EditorController::class, 'destroy']);
+    Route::delete('/editor/delete/{editor}', [EditorController::class, 'destroy']);
 
     //--- USER ---//
 
@@ -44,5 +45,5 @@ Route::middleware(['auth:sanctum', 'checkUserRole'])->group(function() {
     Route::get('/user/{user}', [UserController::class,'show']);
     Route::post('/user/create', [UserController::class,'store']);
     Route::put('/user/edit/{user}', [UserController::class, 'update']);
-    Route::delete('/user/{user}', [UserController::class, 'destroy']);
+    Route::delete('/user/delete/{user}', [UserController::class, 'destroy']);
 });
