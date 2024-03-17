@@ -26,6 +26,8 @@ class AuthorRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'adress' => 'required|string',
+            'email' => 'required|string'
         ];
     }
 
@@ -49,6 +51,10 @@ class AuthorRequest extends FormRequest
             'description.required' => 'La description est obligatoire',
             'description.string' => 'La description doit être une chaîne de caractère',
             'description.max' => 'La description ne doit pas dépasser 255 caractères',
+            'adress.required' => 'L\'adresse est obligatoire',
+            'adress.string' => 'L\'adresse doit être une chaîne de caractères',
+            'email.required' => 'L\'adresse email est obligatoire',
+            'email.email' => 'L\'adresse email doit être une adresse email valide',
         ];
     }
 }
