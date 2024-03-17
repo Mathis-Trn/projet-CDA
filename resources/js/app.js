@@ -1,22 +1,20 @@
 import './bootstrap';
 
-import { createApp } from 'vue';
-import AppNavBar from './components/template/AppNavBar.vue';
-import UsersList from './components/users/UsersList.vue';
-import AppFooter from './components/template/AppFooter.vue';
+import Alpine from 'alpinejs';
 
-const appNav = createApp({});
-const appFooter = createApp({});
-const app = createApp({});
+window.Alpine = Alpine;
 
-appNav
-  .component('app-navbar', AppNavBar)
-appNav.mount("#app-nav-bar");
+Alpine.start();
 
-appFooter
-   .component('app-footer', AppFooter)
-appFooter.mount("#app-footer");
+import { createApp } from 'vue';  
+import router from './router'
 
-app
-    .component('usersList', UsersList)
-app.mount('#app');
+import BooksIndex from '@/components/book/BooksIndex.vue';
+import ShowBook from '@/components/book/ShowBook.vue';
+ 
+createApp({
+    components: {
+        BooksIndex,
+        ShowBook
+    }
+}).use(router).mount('#app') 
