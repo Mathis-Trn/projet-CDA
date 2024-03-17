@@ -1,11 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\Authors\AuthorController;
-use App\Http\Controllers\Api\User\AuthController;
 use App\Http\Controllers\Api\Books\BookController;
 use App\Http\Controllers\Api\Editors\EditorController;
-use App\Http\Controllers\Api\User\IndexController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 //--- BOOK ---//
@@ -17,13 +15,6 @@ Route::get('/author/{author}', [AuthorController::class,'show']);
 
 //--- EDITOR ---//
 Route::get('/editor/{editor}', [EditorController::class,'show']);
-
-//--- AUTH ---//
-Route::post('/inscription', [AuthController::class, 'register']);
-Route::post('/connexion', [AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->post('/deconnexion', [AuthController::class, 'logout']);
-
-Route::get('users', IndexController::class);
 
 Route::middleware(['auth:sanctum', 'checkUserRole'])->group(function() {
 
@@ -49,7 +40,9 @@ Route::middleware(['auth:sanctum', 'checkUserRole'])->group(function() {
 
     //--- USER ---//
 
-    Route::get('/user', function(Request $request) {
-        return $request->user();
-    });
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/user/{user}', [UserController::class,'show']);
+    Route::post('/user/create', [UserController::class,'store']);
+    Route::put('/user/edit/{user}', [UserController::class, 'update']);
+    Route::delete('/user/{user}', [UserController::class, 'destroy']);
 });
