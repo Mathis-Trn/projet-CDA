@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 //--- BOOK ---//
-Route::get('/', [BookController::class, 'index']);
+Route::get('/books', [BookController::class, 'index']);
 Route::get('/recherche', [BookController::class, 'index']);
 Route::get('/book/{book}', [BookController::class, 'show']);
 

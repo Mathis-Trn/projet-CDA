@@ -9,13 +9,19 @@ export default function useBooks() {
     const router = useRouter()
 
     const getBooks = async () => {
-        let response = await axios.get('/api/')
+        let response = await axios.get('/api/books')
         books.value = response.data.data
     }
  
     const getBook = async (id) => {
         let response = await axios.get(`/api/book/${id}`)
         book.value = response.data.data
+
+        response = await axios.get("/api/author/" + book.value.author_id);
+        book.value.author = response.data.data
+
+        response = await axios.get("/api/editor/" + book.value.editor_id);
+        book.value.editor = response.data.data
     }
 
     const storeBook = async (data) => {
