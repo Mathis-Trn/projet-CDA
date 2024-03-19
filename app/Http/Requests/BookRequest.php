@@ -30,6 +30,7 @@ class BookRequest extends FormRequest
             'editor_id' => 'required|exists:editors,id',
             'author_id' => 'required|exists:authors,id',
             'published_at' => 'required|date',
+            'stock' => 'required|integer',
         ];
     }
 
@@ -61,6 +62,7 @@ class BookRequest extends FormRequest
             'published_at.date' => 'La date de publication doit être une date valide',
             'cover.required' => 'L\'image est obligatoire',
             'cover.string' => 'L\'image doit être une chaîne de caractères',
+            
         ];
     }
 }
