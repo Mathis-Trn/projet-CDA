@@ -24,21 +24,32 @@ export default function useEditors() {
         }
     }
 
-    const createEditor = async (data) => {
+    const storeEditor = async (data) => {
+        errors.value = ''
         try {
             await axios.post('/api/editor/create', data)
-        } catch (error) {
-            console.error('Error creating editor:', error)
-            errors.value = error.response.data.message
+            await router.push({ name: 'editors.create' })
+        } catch (e) {
+            if (e.response.status === 422) {
+                for (const key in e.response.data.errors) {
+                    errors.value = e.response.data.errors
+                }
+            }
         }
+
     }
 
     const updateEditor = async (id, data) => {
+        errors.value = ''
         try {
-            await axios.patch(`/api/editor/edit/${id}`, data)
-        } catch (error) {
-            console.error('Error updating editor:', error)
-            errors.value = error.response.data.message
+            await axios.put(`/api/editor/edit/${id}`, data)
+            await router.push({ name: 'editors.edit' })
+        } catch (e) {
+            if (e.response?.status === 422) {
+                for (const key in e.response.data.errors) {
+                    errors.value = e.response.data.errors
+                }
+            }
         }
     }
 
@@ -57,7 +68,7 @@ export default function useEditors() {
         errors,
         getEditors,
         getEditor,
-        createEditor,
+        storeEditor,
         updateEditor,
         deleteEditor,
     }

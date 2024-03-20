@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
- 
+
 export default function useBooks() {
     const book = ref([])
     const books = ref([])
@@ -9,19 +9,27 @@ export default function useBooks() {
     const router = useRouter()
 
     const getBooks = async () => {
-        let response = await axios.get('/api/books')
-        books.value = response.data.data
+        try {
+            let response = await axios.get('/api/books')
+            books.value = response.data.data
+        } catch (error) {
+            console.error('Error fetching books:', error)
+        }
     }
- 
+
     const getBook = async (id) => {
-        let response = await axios.get(`/api/book/${id}`)
-        book.value = response.data.data
+        try {
+            let response = await axios.get(`/api/book/${id}`)
+            book.value = response.data.data
 
-        response = await axios.get("/api/author/" + book.value.author_id);
-        book.value.author = response.data.data
+            response = await axios.get("/api/author/" + book.value.author_id);
+            book.value.author = response.data.data
 
-        response = await axios.get("/api/editor/" + book.value.editor_id);
-        book.value.editor = response.data.data
+            response = await axios.get("/api/editor/" + book.value.editor_id);
+            book.value.editor = response.data.data
+        } catch (error) {
+            console.error('Error fetching book:', error)
+        }
     }
 
     const storeBook = async (data) => {
@@ -36,9 +44,9 @@ export default function useBooks() {
                 }
             }
         }
- 
+
     }
- 
+
     const updateBook = async (id, data) => {
         errors.value = ''
         try {
@@ -52,7 +60,7 @@ export default function useBooks() {
             }
         }
     }
- 
+
     const deleteBook = async (id) => {
         try {
             await axios.delete(`/api/book/delete/${id}`)
@@ -62,7 +70,7 @@ export default function useBooks() {
             console.error('Error deleting book:', error)
         }
     }
- 
+
     return {
         errors,
         book,

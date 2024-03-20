@@ -8,7 +8,7 @@
             <h2 style="font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; letter-spacing: -0.025em; color: #374151; @apply text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl;">Modifier l'Editeur</h2>
             <p style="margin-top: 0.5rem; font-size: 1.125rem; line-height: 1.75rem; color: #4b5563; @apply mt-2 text-lg leading-8 text-gray-600;">Remplissez les champs pour modifier l'Editeur</p>
         </div>
-        <form @submit.prevent="createBook" style="margin-inline-start: auto; margin-inline-end: auto; margin-top: 4rem; max-width: xl; @apply mx-auto mt-16 max-w-xl sm:mt-20;">
+        <form @submit.prevent="createEditor" style="margin-inline-start: auto; margin-inline-end: auto; margin-top: 4rem; max-width: xl; @apply mx-auto mt-16 max-w-xl sm:mt-20;">
             <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem 2rem; @apply grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2;">
                 <div>
                     <label for="name" style="font-size: 0.875rem; font-weight: 600; line-height: 1.25rem; color: #374151; @apply block text-sm font-semibold leading-6 text-gray-900;">Nom</label>
@@ -43,10 +43,32 @@
 </template>
 
 <script setup>
-import useEditors from '@/composables/editors'
 import { onMounted } from 'vue';
- 
-const { updateEditor } = useEditors()
- 
-onMounted( updateEditor )
+import { useRouter } from 'vue-router'; // Import useRouter
+import useEditors from '@/composables/editors';
+
+const router = useRouter(); // Use useRouter to get the router instance
+const { updateEditor, getEditor } = useEditors();
+
+const id = router.currentRoute.value.params.id;
+
+const updateEditorData = async () => {
+  console.log(id);
+
+  // Get form data
+  const name = document.getElementById('name').value;
+  const description = document.getElementById('description').value;
+  const email = document.getElementById('email').value;
+  const adress = document.getElementById('adress').value
+
+  // Call updateEditor function with id and form data
+  await updateEditor(id, {
+    name,
+    description,
+    email,
+    adress
+  });
+}
+
+onMounted(getEditor(id));
 </script>

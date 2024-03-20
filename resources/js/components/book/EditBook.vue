@@ -64,7 +64,6 @@ const { updateBook, getBook } = useBooks();
 const id = router.currentRoute.value.params.id;
 
 const updateBookData = async () => {
-  console.log(id);
 
   // Get form data
   const name = document.getElementById('name').value;
