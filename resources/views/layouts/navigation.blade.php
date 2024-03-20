@@ -17,11 +17,11 @@
                         {{ __('Catalogue') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('recherche')" :active="request()->routeIs('recherche')">
-                        {{__('Recherche')}}
-                    </x-nav-link>
-
                     @auth
+                        <x-nav-link :href="route('nouveau-livre')" :active="request()->routeIs('nouveau-livre')">
+                            {{__('Nouveau livre')}}
+                        </x-nav-link>
+                    
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Tableau de bord') }}
                         </x-nav-link>

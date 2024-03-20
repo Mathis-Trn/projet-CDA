@@ -13,37 +13,37 @@
                 <!-- Titre -->
                 <div>
                     <label for="name" class="form-label">Titre</label>
-                    <input type="text" id="name" class="form-input">
+                    <input type="text" id="name" class="form-input" v-model="name">
                 </div>
                 <!-- Auteur -->
                 <div>
                     <label for="author_id" class="form-label">Auteur</label>
-                    <input type="text" id="author_id" class="form-input">
+                    <input type="text" id="author_id" class="form-input" v-model="author_id">
                 </div>
                 <!-- Éditeur -->
                 <div>
                     <label for="editor_id" class="form-label">Éditeur</label>
-                    <input type="text" id="editor_id" class="form-input">
+                    <input type="text" id="editor_id" class="form-input" v-model="editor_id">
                 </div>
                 <!-- Couverture -->
                 <div>
                     <label for="cover" class="form-label">Couverture</label>
-                    <input type="text" id="cover" class="form-input">
+                    <input type="text" id="cover" class="form-input" v-model="cover">
                 </div>
                 <!-- Description -->
                 <div>
                     <label for="description" class="form-label">Description</label>
-                    <textarea id="description" class="form-input"></textarea>
+                    <textarea id="description" class="form-input" v-model="description"></textarea>
                 </div>
                 <!-- Stock -->
                 <div>
                     <label for="stock" class="form-label">Stock</label>
-                    <input type="text" id="stock" class="form-input">
+                    <input type="text" id="stock" class="form-input" v-model="stock">
                 </div>
                 <!-- Date de parution -->
                 <div>
                     <label for="published_at" class="form-label">Date de parution</label>
-                    <input type="text" id="published_at" class="form-input">
+                    <input type="text" id="published_at" class="form-input" v-model="published_at">
                 </div>
             </div>
             <div style="margin-top: 2.5rem; @apply mt-10;">
@@ -54,16 +54,16 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router'; // Import useRouter
 import useBooks from '@/composables/books';
 
 const router = useRouter(); // Use useRouter to get the router instance
-const { updateBook } = useBooks();
+const { updateBook, getBook } = useBooks();
+
+const id = router.currentRoute.value.params.id;
 
 const updateBookData = async () => {
-  // Get the route params using router.currentRoute.value.params
-  const id = router.currentRoute.value.params.id;
-
   console.log(id);
 
   // Get form data
@@ -86,6 +86,8 @@ const updateBookData = async () => {
     published_at,
   });
 }
+
+onMounted(getBook(id));
 </script>
 
 <style scoped>
