@@ -39,13 +39,13 @@ export default function useBooks() {
  
     }
  
-    const updateBook = async (id) => {
+    const updateBook = async (id, data) => {
         errors.value = ''
         try {
-            await axios.patch(`/api/book/edit/${id}`, book.value)
-            await router.push({ name: 'books.update' })
+            await axios.put(`/api/book/edit/${id}`, data)
+            await router.push({ name: 'books.edit' })
         } catch (e) {
-            if (e.response.status === 422) {
+            if (e.response?.status === 422) {
                 for (const key in e.response.data.errors) {
                     errors.value = e.response.data.errors
                 }

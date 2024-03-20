@@ -8,63 +8,127 @@
             <h2 style="font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; letter-spacing: -0.025em; color: #374151; @apply text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl;">Modifier le livre</h2>
             <p style="margin-top: 0.5rem; font-size: 1.125rem; line-height: 1.75rem; color: #4b5563; @apply mt-2 text-lg leading-8 text-gray-600;">Remplissez les champs pour modifier le livre</p>
         </div>
-        <form @submit.prevent="createBook" style="margin-inline-start: auto; margin-inline-end: auto; margin-top: 4rem; max-width: xl; @apply mx-auto mt-16 max-w-xl sm:mt-20;">
+        <form @submit.prevent="updateBookData" style="margin-inline-start: auto; margin-inline-end: auto; margin-top: 4rem; max-width: xl; @apply mx-auto mt-16 max-w-xl sm:mt-20;">
             <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem 2rem; @apply grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2;">
+                <!-- Titre -->
                 <div>
-                    <label for="title" style="font-size: 0.875rem; font-weight: 600; line-height: 1.25rem; color: #374151; @apply block text-sm font-semibold leading-6 text-gray-900;">Titre</label>
-                    <div style="margin-top: 0.625rem; @apply mt-2.5;">
-                        <input type="text" id="title" style="width: 100%; border-radius: 0.375rem; border-width: 0; padding-inline: 0.875rem; padding-block: 0.5rem; color: #374151; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05); border-color: #d1d5db; placeholder-color: #9ca3af; outline-width: 0; outline-offset: 0; outline-style: auto; outline-color: initial; outline-width: 2px; outline-style: inset; outline-color: #2563eb; @apply block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;">
-                    </div>
+                    <label for="name" class="form-label">Titre</label>
+                    <input type="text" id="name" class="form-input">
                 </div>
+                <!-- Auteur -->
                 <div>
-                    <label for="author" style="font-size: 0.875rem; font-weight: 600; line-height: 1.25rem; color: #374151; @apply block text-sm font-semibold leading-6 text-gray-900;">Auteur</label>
-                    <div style="margin-top: 0.625rem; @apply mt-2.5;">
-                        <input type="text" id="author" style="width: 100%; border-radius: 0.375rem; border-width: 0; padding-inline: 0.875rem; padding-block: 0.5rem; color: #374151; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05); border-color: #d1d5db; placeholder-color: #9ca3af; outline-width: 0; outline-offset: 0; outline-style: auto; outline-color: initial; outline-width: 2px; outline-style: inset; outline-color: #2563eb; @apply block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;">
-                    </div>
+                    <label for="author_id" class="form-label">Auteur</label>
+                    <input type="text" id="author_id" class="form-input">
                 </div>
+                <!-- Éditeur -->
                 <div>
-                    <label for="editor" style="font-size: 0.875rem; font-weight: 600; line-height: 1.25rem; color: #374151; @apply block text-sm font-semibold leading-6 text-gray-900;">Editeur</label>
-                    <div style="margin-top: 0.625rem; @apply mt-2.5;">
-                        <input type="text" id="editor" style="width: 100%; border-radius: 0.375rem; border-width: 0; padding-inline: 0.875rem; padding-block: 0.5rem; color: #374151; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05); border-color: #d1d5db; placeholder-color: #9ca3af; outline-width: 0; outline-offset: 0; outline-style: auto; outline-color: initial; outline-width: 2px; outline-style: inset; outline-color: #2563eb; @apply block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;">
-                    </div>
+                    <label for="editor_id" class="form-label">Éditeur</label>
+                    <input type="text" id="editor_id" class="form-input">
                 </div>
+                <!-- Couverture -->
                 <div>
-                    <label for="cover" style="font-size: 0.875rem; font-weight: 600; line-height: 1.25rem; color: #374151; @apply block text-sm font-semibold leading-6 text-gray-900;">Couverture</label>
-                    <div style="margin-top: 0.625rem; @apply mt-2.5;">
-                        <input type="text" id="cover" style="width: 100%; border-radius: 0.375rem; border-width: 0; padding-inline: 0.875rem; padding-block: 0.5rem; color: #374151; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05); border-color: #d1d5db; placeholder-color: #9ca3af; outline-width: 0; outline-offset: 0; outline-style: auto; outline-color: initial; outline-width: 2px; outline-style: inset; outline-color: #2563eb; @apply block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;">
-                    </div>
+                    <label for="cover" class="form-label">Couverture</label>
+                    <input type="text" id="cover" class="form-input">
                 </div>
+                <!-- Description -->
                 <div>
-                    <label for="description" style="font-size: 0.875rem; font-weight: 600; line-height: 1.25rem; color: #374151; @apply block text-sm font-semibold leading-6 text-gray-900;">Description</label>
-                    <div style="margin-top: 0.625rem; @apply mt-2.5;">
-                        <input type="text-area" id="description" style="width: 100%; border-radius: 0.375rem; border-width: 0; padding-inline: 0.875rem; padding-block: 0.5rem; color: #374151; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05); border-color: #d1d5db; placeholder-color: #9ca3af; outline-width: 0; outline-offset: 0; outline-style: auto; outline-color: initial; outline-width: 2px; outline-style: inset; outline-color: #2563eb; @apply block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;">
-                    </div>
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" class="form-input"></textarea>
                 </div>
+                <!-- Stock -->
                 <div>
-                    <label for="stock" style="font-size: 0.875rem; font-weight: 600; line-height: 1.25rem; color: #374151; @apply block text-sm font-semibold leading-6 text-gray-900;">Stock</label>
-                    <div style="margin-top: 0.625rem; @apply mt-2.5;">
-                        <input type="text" id="stock" style="width: 100%; border-radius: 0.375rem; border-width: 0; padding-inline: 0.875rem; padding-block: 0.5rem; color: #374151; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05); border-color: #d1d5db; placeholder-color: #9ca3af; outline-width: 0; outline-offset: 0; outline-style: auto; outline-color: initial; outline-width: 2px; outline-style: inset; outline-color: #2563eb; @apply block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;">
-                    </div>
+                    <label for="stock" class="form-label">Stock</label>
+                    <input type="text" id="stock" class="form-input">
                 </div>
+                <!-- Date de parution -->
                 <div>
-                    <label for="published_at" style="font-size: 0.875rem; font-weight: 600; line-height: 1.25rem; color: #374151; @apply block text-sm font-semibold leading-6 text-gray-900;">Date de parution</label>
-                    <div style="margin-top: 0.625rem; @apply mt-2.5;">
-                        <input type="text" id="published_at" style="width: 100%; border-radius: 0.375rem; border-width: 0; padding-inline: 0.875rem; padding-block: 0.5rem; color: #374151; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05); border-color: #d1d5db; placeholder-color: #9ca3af; outline-width: 0; outline-offset: 0; outline-style: auto; outline-color: initial; outline-width: 2px; outline-style: inset; outline-color: #2563eb; @apply block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;">
-                    </div>
+                    <label for="published_at" class="form-label">Date de parution</label>
+                    <input type="text" id="published_at" class="form-input">
                 </div>
             </div>
             <div style="margin-top: 2.5rem; @apply mt-10;">
-                <button type="submit" style="display: block; width: 100%; border-radius: 0.375rem; background-color: #4f46e5; padding-inline: 0.875rem; padding-block: 0.625rem; color: #fff; font-weight: 600; box-shadow: 0 0.125rem 0.25rem rgba(79, 70, 229, 0.5); @apply block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;">Ajouter le livre</button>
+                <button type="submit" class="btn-submit">Ajouter le livre</button>
             </div>
         </form>
     </div>
 </template>
 
 <script setup>
-import useBooks from '@/composables/books'
-import { onMounted } from 'vue';
- 
-const { updateBook } = useBooks()
- 
-onMounted(updateBook)
+import { useRouter } from 'vue-router'; // Import useRouter
+import useBooks from '@/composables/books';
+
+const router = useRouter(); // Use useRouter to get the router instance
+const { updateBook } = useBooks();
+
+const updateBookData = async () => {
+  // Get the route params using router.currentRoute.value.params
+  const id = router.currentRoute.value.params.id;
+
+  console.log(id);
+
+  // Get form data
+  const name = document.getElementById('name').value;
+  const description = document.getElementById('description').value;
+  const cover = document.getElementById('cover').value;
+  const author_id = document.getElementById('author_id').value;
+  const editor_id = document.getElementById('editor_id').value;
+  const stock = document.getElementById('stock').value;
+  const published_at = document.getElementById('published_at').value;
+
+  // Call updateBook function with id and form data
+  await updateBook(id, {
+    name,
+    description,
+    cover,
+    author_id,
+    editor_id,
+    stock,
+    published_at,
+  });
+}
 </script>
+
+<style scoped>
+/* Style personnalisé pour le formulaire */
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    color: #374151;
+}
+
+.form-input {
+    width: 100%;
+    border-radius: 0.375rem;
+    border-width: 0;
+    padding-inline: 0.875rem;
+    padding-block: 0.5rem;
+    color: #374151;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
+    border-color: #d1d5db;
+    placeholder-color: #9ca3af;
+    outline-width: 0;
+    outline-offset: 0;
+    outline-style: auto;
+    outline-color: initial;
+    outline-width: 2px;
+    outline-style: inset;
+    outline-color: #2563eb;
+}
+
+.btn-submit {
+    display: block;
+    width: 100%;
+    border-radius: 0.375rem;
+    background-color: #4f46e5;
+    padding-inline: 0.875rem;
+    padding-block: 0.625rem;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 0.125rem 0.25rem rgba(79, 70, 229, 0.5);
+}
+
+.btn-submit:hover {
+    background-color: #4338ca;
+}
+</style>

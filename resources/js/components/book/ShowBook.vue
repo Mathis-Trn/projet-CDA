@@ -19,7 +19,7 @@
   </template>
   
   <script>
-  import { ref, onMounted } from 'vue'
+  import { onMounted } from 'vue'
   import { useRoute } from 'vue-router'
   import useBooks from '@/composables/books'
   

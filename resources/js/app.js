@@ -12,11 +12,13 @@ import router from './router'
 import BooksIndex from '@/components/book/BooksIndex.vue';
 import ShowBook from '@/components/book/ShowBook.vue';
 import CreateBook from '@/components/book/CreateBook.vue';
+import EditBook from '@/components/book/EditBook.vue';
  
 createApp({
     components: {
         BooksIndex,
         ShowBook,
-        CreateBook
+        CreateBook,
+        EditBook
     }
 }).use(router).mount('#app') 
