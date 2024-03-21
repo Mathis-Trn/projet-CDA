@@ -1,6 +1,6 @@
 <template>
     <div>
-      <button @click="createNewUser" class="custom-button-create">Créer un nouvel éditeur</button>
+      <button @click="createNewUser" class="custom-button-create">Créer un nouvel utilisateur</button>
       <table class="custom-table">
         <thead>
           <tr>

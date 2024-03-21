@@ -19,23 +19,23 @@
 
                     @auth
 
-                        @if(Auth::user()->hasRole('admin'))
-                            <x-nav-link :href="route('books')" :active="request()->routeIs('books')">
-                                {{__('Livres')}}
-                            </x-nav-link>
+                       
+                        <x-nav-link :href="route('books')" :active="request()->routeIs('books')">
+                            {{__('Livres')}}
+                        </x-nav-link>
 
-                            <x-nav-link :href="route('authors')" :active="request()->routeIs('authors')">
-                                {{__('Auteurs')}}
-                            </x-nav-link>
+                        <x-nav-link :href="route('authors')" :active="request()->routeIs('authors')">
+                            {{__('Auteurs')}}
+                        </x-nav-link>
 
-                            <x-nav-link :href="route('editors')" :active="request()->routeIs('editors')">
-                                {{__('Éditeurs')}}
-                            </x-nav-link>
+                        <x-nav-link :href="route('editors')" :active="request()->routeIs('editors')">
+                            {{__('Éditeurs')}}
+                        </x-nav-link>
 
-                            <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
-                                {{__('Comptes')}}
-                            </x-nav-link>
-                        @endif
+                        <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                            {{__('Comptes')}}
+                        </x-nav-link>
+                    
                     
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Tableau de bord') }}

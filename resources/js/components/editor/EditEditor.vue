@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div style="margin-top: 2.5rem; @apply mt-10;">
-                <button type="submit" style="display: block; width: 100%; border-radius: 0.375rem; background-color: #4f46e5; padding-inline: 0.875rem; padding-block: 0.625rem; color: #fff; font-weight: 600; box-shadow: 0 0.125rem 0.25rem rgba(79, 70, 229, 0.5); @apply block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;">Ajouter le livre</button>
+                <button type="submit" style="display: block; width: 100%; border-radius: 0.375rem; background-color: #4f46e5; padding-inline: 0.875rem; padding-block: 0.625rem; color: #fff; font-weight: 600; box-shadow: 0 0.125rem 0.25rem rgba(79, 70, 229, 0.5); @apply block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;">Modifier l'Éditeur</button>
             </div>
         </form>
     </div>

@@ -17,7 +17,8 @@ Route::get('/author/{author}', [AuthorController::class,'show']);
 //--- EDITOR ---//
 Route::get('/editor/{editor}', [EditorController::class,'show']);
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+// Route::middleware(['auth:sanctum', 'checkUserRole'])->group(function() {
+
     //--- BOOK ---//
 
     Route::post('/book/create', [BookController::class,'store']);
@@ -35,14 +36,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/editors', [EditorController::class, 'index']);
     Route::post('/editor/create', [EditorController::class,'store']);
-    Route::put('/editor/edit/{editor}', [EditorController::class, 'update']);
+    Route::put('/editor/edit{editor}', [EditorController::class, 'update']);
     Route::delete('/editor/delete/{editor}', [EditorController::class, 'destroy']);
 
     //--- USER ---//
 
     Route::get('/users', [UserController::class, 'index']);
+    Route::get('/user/{user}', [UserController::class,'show']);
     Route::post('/user/create', [UserController::class,'store']);
     Route::put('/user/edit/{user}', [UserController::class, 'update']);
     Route::delete('/user/delete/{user}', [UserController::class, 'destroy']);
-
-});
+// });

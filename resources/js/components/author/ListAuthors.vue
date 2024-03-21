@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="createNewAuthor" class="custom-button-create">Créer un nouvel éditeur</button>
+    <button @click="createNewAuthor" class="custom-button-create">Créer un nouvel auteur</button>
     <table class="custom-table">
       <thead>
         <tr>

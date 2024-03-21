@@ -30,7 +30,7 @@ export default function useUsers() {
             await axios.post('/api/user/create', data)
             await router.push({ name: 'users.create' })
         } catch (e) {
-            if (e.response.status === 422) {
+            if (e.response?.status === 422) {
                 for (const key in e.response.data.errors) {
                     errors.value = e.response.data.errors
                 }
