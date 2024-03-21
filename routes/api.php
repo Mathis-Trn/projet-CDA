@@ -17,7 +17,7 @@ Route::get('/author/{author}', [AuthorController::class,'show']);
 //--- EDITOR ---//
 Route::get('/editor/{editor}', [EditorController::class,'show']);
 
-// Route::middleware(['auth:sanctum', 'checkUserRole'])->group(function() {
+Route::middleware(['auth', 'checkUserRole'])->group(function() {
 
     //--- BOOK ---//
 
@@ -46,4 +46,4 @@ Route::get('/editor/{editor}', [EditorController::class,'show']);
     Route::post('/user/create', [UserController::class,'store']);
     Route::put('/user/edit/{user}', [UserController::class, 'update']);
     Route::delete('/user/delete/{user}', [UserController::class, 'destroy']);
-// });
+});
