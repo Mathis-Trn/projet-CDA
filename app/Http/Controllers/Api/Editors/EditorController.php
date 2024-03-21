@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EditorRequest;
 use App\Http\Resources\EditorResource;
 use App\Models\Editors;
-use Exception;
 
 class EditorController extends Controller
 {
