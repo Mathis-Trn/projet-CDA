@@ -14,4 +14,11 @@ class Editors extends Model
     {
         return $this->hasMany(Books::class);
     }
+
+    protected $fillable = [
+        'name',
+        'adress',
+        'description',
+        'email',
+    ];
 }
