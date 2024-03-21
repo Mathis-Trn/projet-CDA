@@ -24,21 +24,32 @@ export default function useUsers() {
         }
     }
 
-    const createUser = async (data) => {
+    const storeUser = async (data) => {
+        errors.value = ''
         try {
             await axios.post('/api/user/create', data)
-        } catch (error) {
-            console.error('Error creating user:', error)
-            errors.value = error.response.data.message
+            await router.push({ name: 'users.create' })
+        } catch (e) {
+            if (e.response.status === 422) {
+                for (const key in e.response.data.errors) {
+                    errors.value = e.response.data.errors
+                }
+            }
         }
+
     }
 
     const updateUser = async (id, data) => {
+        errors.value = ''
         try {
-            await axios.patch(`/api/user/edit/${id}`, data)
-        } catch (error) {
-            console.error('Error updating user:', error)
-            errors.value = error.response.data.message
+            await axios.put(`/api/user/edit/${id}`, data)
+            await router.push({ name: 'users.edit' })
+        } catch (e) {
+            if (e.response?.status === 422) {
+                for (const key in e.response.data.errors) {
+                    errors.value = e.response.data.errors
+                }
+            }
         }
     }
 
@@ -57,7 +68,7 @@ export default function useUsers() {
         errors,
         getUsers,
         getUser,
-        createUser,
+        storeUser,
         updateUser,
         deleteUser,
     }

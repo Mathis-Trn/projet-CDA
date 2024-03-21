@@ -18,8 +18,8 @@
                     </x-nav-link>
 
                     @auth
-                        <x-nav-link :href="route('new-book')" :active="request()->routeIs('new-book')">
-                            {{__('Nouveau livre')}}
+                        <x-nav-link :href="route('books')" :active="request()->routeIs('books')">
+                            {{__('Livres')}}
                         </x-nav-link>
 
                         <x-nav-link :href="route('authors')" :active="request()->routeIs('authors')">

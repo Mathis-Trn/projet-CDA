@@ -24,21 +24,32 @@ export default function useAuthors() {
         }
     }
 
-    const createAuthor = async (data) => {
+    const storeAuthor = async (data) => {
+        errors.value = ''
         try {
             await axios.post('/api/author/create', data)
-        } catch (error) {
-            console.error('Error creating author:', error)
-            errors.value = error.response.data.message
+            await router.push({ name: 'authors.create' })
+        } catch (e) {
+            if (e.response.status === 422) {
+                for (const key in e.response.data.errors) {
+                    errors.value = e.response.data.errors
+                }
+            }
         }
+
     }
 
     const updateAuthor = async (id, data) => {
+        errors.value = ''
         try {
-            await axios.patch(`/api/author/edit/${id}`, data)
-        } catch (error) {
-            console.error('Error updating author:', error)
-            errors.value = error.response.data.message
+            await axios.put(`/api/author/edit/${id}`, data)
+            await router.push({ name: 'authors.edit' })
+        } catch (e) {
+            if (e.response?.status === 422) {
+                for (const key in e.response.data.errors) {
+                    errors.value = e.response.data.errors
+                }
+            }
         }
     }
 
@@ -57,7 +68,7 @@ export default function useAuthors() {
         errors,
         getAuthors,
         getAuthor,
-        createAuthor,
+        storeAuthor,
         updateAuthor,
         deleteAuthor,
     }

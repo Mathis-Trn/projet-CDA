@@ -25,8 +25,9 @@ export default function useBooks() {
             response = await axios.get("/api/author/" + book.value.author_id);
             book.value.author = response.data.data
 
-            response = await axios.get("/api/editor/" + book.value.editor_id);
-            book.value.editor = response.data.data
+            response = await axios.get("/api/book/" + book.value.book_id);
+            book.value.book = response.data.data
+
         } catch (error) {
             console.error('Error fetching book:', error)
         }
@@ -64,10 +65,9 @@ export default function useBooks() {
     const deleteBook = async (id) => {
         try {
             await axios.delete(`/api/book/delete/${id}`)
-            // After successful deletion, you may want to refresh the list of books
-            await getBooks()
         } catch (error) {
             console.error('Error deleting book:', error)
+            errors.value = error.response.data.message
         }
     }
 

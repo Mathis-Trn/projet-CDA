@@ -13,12 +13,18 @@ import EditAuthor from '@/components/author/EditAuthor.vue';
 import ListUsers from '@/components/users/ListUsers.vue';
 import CreateUser from '@/components/users/CreateUser.vue';
 import EditUser from '@/components/users/EditUser.vue';
+import ListBooks from '@/components/book/ListBooks.vue';
  
 const routes = [
     {
         path: '/',
         name: 'books.index',
         component: BooksIndex
+    },
+    {
+        path: '/books',
+        name: 'books.list',
+        component: ListBooks
     },
     {
         path: '/book/:id',
