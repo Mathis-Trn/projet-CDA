@@ -48,6 +48,13 @@ class EditorRequest extends FormRequest
             'name.required' => 'Le nom est obligatoire',
             'name.string' => 'Le nom doit être une chaîne de caractères',
             'name.max' => 'Le nom ne doit pas dépasser 255 caractères',
+            'description.required' => 'La description est obligatoire',
+            'description.string' => 'La description doit être une chaîne de caractère',
+            'description.max' => 'La description ne doit pas dépasser 255 caractères',
+            'adress.required' => 'L\'adresse est obligatoire',
+            'adress.string' => 'L\'adresse doit être une chaîne de caractères',
+            'email.required' => 'L\'email est obligatoire',
+            'email.string' => 'L\'email doit être une chaîne de caractères'
         ];
     }
 }
