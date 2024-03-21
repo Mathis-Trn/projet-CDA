@@ -42,12 +42,10 @@
     setup() {
       const { books, getBooks, deleteBook } = useBooks()
       const router = useRouter()
-  
+
       onMounted(getBooks)
 
       const confirmDelete = async (id) => {
-
-        console.log();
 
         if (confirm("Êtes-vous sûr de vouloir supprimer ce livre?")) {
             try {

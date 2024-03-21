@@ -4,17 +4,24 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CheckUserRole
 {
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $role): Response
     {
-        // Vérifier si l'utilisateur est connecté
-        if ($request->user() && $request->user()->role_id === 4) {
-            return $next($request);
+        try {
+            $user = auth()->user();
+
+            if (!$user || !$user->role || $user->role->name !== $role) {
+
+                return response()->json(['message' => 'Accès non autorisé.'], 403);
+            }
+        } catch (\Exception $e) {
+            // En cas d'erreur, retournez une réponse 403 générique
+            return response()->json(['message' => 'Accès non autorisé.'], 403);
         }
 
-        // Rediriger ou renvoyer une réponse en cas de non-autorisation
-        return redirect('/')->with('error', 'Vous n\'avez pas les autorisations nécessaires.');
+        return $next($request);
     }
 }
