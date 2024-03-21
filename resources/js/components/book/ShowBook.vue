@@ -12,14 +12,6 @@
         <p class="mb-4">Editeur: {{ book.editor?.name }}</p>
       </div>
       <!-- Modify and Delete Buttons -->
-      <div class="flex">
-        <button @click="editBook" class="custom-button-edit bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4 mr-2">
-          Modifier
-        </button>
-        <button @click="confirmDelete" class="custom-button-delete bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4">
-          Supprimer
-        </button>
-      </div>
     </div>
     <div v-else>
       <p>Loading...</p>
@@ -29,39 +21,20 @@
 
 <script>
 import { onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import useBooks from '@/composables/books'
 
 export default {
   setup() {
-    const { book, getBook, deleteBook } = useBooks()
+    const { book, getBook } = useBooks()
     const route = useRoute()
-    const router = useRouter()
 
     onMounted(async () => {
       await getBook(route.params.id)
     })
 
-    const confirmDelete = async () => {
-      if (confirm("Êtes-vous sûr de vouloir supprimer ce livre?")) {
-        try {
-          await deleteBook(route.params.id)
-          await router.push({ name: 'books.index' })
-        } catch (error) {
-          console.error('Error deleting book:', error)
-        }
-      }
-    }
-
-    const editBook = async () => {
-      // Redirect to the edit page for this book
-      await router.push({ name: 'books.edit', params: { id: route.params.id } })
-    }
-
     return {
-      book,
-      confirmDelete,
-      editBook
+      book
     }
   }
 }

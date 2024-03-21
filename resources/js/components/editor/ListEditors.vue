@@ -19,7 +19,6 @@
           <td>{{ editor.email }}</td>
           <td>
             <button @click="editEditor(editor.id)" class="custom-button-edit">Modifier</button>
-            <button @click="deleteEditor(editor.id)" class="custom-button-delete">Supprimer</button>
           </td>
         </tr>
       </tbody>
@@ -34,37 +33,29 @@ import useEditors from '@/composables/editors'
 
 export default {
   setup() {
-    const { editors, getEditors, deleteEditor } = useEditors()
+    const { editors, getEditors } = useEditors()
     const router = useRouter()
 
     onMounted(getEditors)
-
-    const confirmDelete = async (id) => {
-      if (confirm("Êtes-vous sûr de vouloir supprimer cet éditeur?")) {
-        try {
-          await deleteEditor(id)
-          // Recharger la liste des éditeurs après la suppression
-          await getEditors()
-        } catch (error) {
-          console.error('Error deleting editor:', error)
-        }
-      }
-    }
 
     const editEditor = async (id) => {
       // Rediriger vers la page d'édition de cet éditeur
       await router.push({ name: 'editors.edit', params: { id } })
     }
 
+    const createNewEditor = async () => {
+      // Rediriger vers la page de création d'un nouvel éditeur
+      await router.push({ name: 'editors.create' })
+    }
+
     return {
       editors,
-      confirmDelete,
-      editEditor
+      editEditor,
+      createNewEditor
     }
   }
 }
 </script>
-
 
 <style scoped>
 .custom-table {
@@ -98,16 +89,6 @@ export default {
   color: white;
   padding: 6px 12px;
   margin-right: 5px;
-}
-
-.custom-button-delete {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 8px;
-  background-color: indianred;
-  color: white;
-  padding: 6px 12px;
 }
 
 .custom-button:hover {

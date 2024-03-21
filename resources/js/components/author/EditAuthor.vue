@@ -5,10 +5,10 @@
             <div style="position: relative; left: 50%; z-index: -10; aspect-ratio: 1155 / 678; width: 36.125rem; max-width: none; transform: translateX(-50%) rotate(30deg); background-image: linear-gradient(to top right, #ff80b5, #9089fc); opacity: 0.3; clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%); @apply relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem];"></div>
         </div>
         <div style="margin-inline-start: auto; margin-inline-end: auto; max-width: 2xl; text-align: center; @apply mx-auto max-w-2xl text-center;">
-            <h2 style="font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; letter-spacing: -0.025em; color: #374151; @apply text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl;">Modifier Auteur</h2>
-            <p style="margin-top: 0.5rem; font-size: 1.125rem; line-height: 1.75rem; color: #4b5563; @apply mt-2 text-lg leading-8 text-gray-600;">Remplissez les champs pour modifier l'Auteur</p>
+            <h2 style="font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; letter-spacing: -0.025em; color: #374151; @apply text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl;">Modifier l'Editeur</h2>
+            <p style="margin-top: 0.5rem; font-size: 1.125rem; line-height: 1.75rem; color: #4b5563; @apply mt-2 text-lg leading-8 text-gray-600;">Remplissez les champs pour modifier l'Editeur</p>
         </div>
-        <form @submit.prevent="createBook" style="margin-inline-start: auto; margin-inline-end: auto; margin-top: 4rem; max-width: xl; @apply mx-auto mt-16 max-w-xl sm:mt-20;">
+        <form @submit.prevent="updateAuthorData" style="margin-inline-start: auto; margin-inline-end: auto; margin-top: 4rem; max-width: xl; @apply mx-auto mt-16 max-w-xl sm:mt-20;">
             <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem 2rem; @apply grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2;">
                 <div>
                     <label for="name" style="font-size: 0.875rem; font-weight: 600; line-height: 1.25rem; color: #374151; @apply block text-sm font-semibold leading-6 text-gray-900;">Nom</label>
@@ -43,10 +43,32 @@
 </template>
 
 <script setup>
-import useAuthors from '@/composables/authors'
 import { onMounted } from 'vue';
- 
-const { updateAuthor } = useAuthors()
- 
-onMounted( updateAuthor )
+import { useRouter } from 'vue-router'; // Import useRouter
+import useAuthors from '@/composables/authors';
+
+const router = useRouter(); // Use useRouter to get the router instance
+const { updateAuthor, getAuthor } = useAuthors();
+
+const id = router.currentRoute.value.params.id;
+
+const updateAuthorData = async () => {
+  console.log(id);
+
+  // Get form data
+  const name = document.getElementById('name').value;
+  const description = document.getElementById('description').value;
+  const email = document.getElementById('email').value;
+  const adress = document.getElementById('adress').value;
+
+  // Call updateAuthor function with id and form data
+  await updateAuthor(id, {
+    name,
+    description,
+    adress,
+    email
+  });
+}
+
+onMounted(getAuthor(id));
 </script>
