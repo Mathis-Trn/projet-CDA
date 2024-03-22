@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('borroweds', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('book_id')->constrained();
-            $table->timestamps();
+        Schema::table('books', function (Blueprint $table) {
+            $table->timestamp("published_at")->nullable()->after('description');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('borroweds');
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropColumn("published_at");
+        });
     }
 };

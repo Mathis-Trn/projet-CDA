@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class AuthorFactory extends Factory
+class AuthorsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,9 @@ class AuthorFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->company(),
-            'adresse' => fake()->address(),
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'adress' => fake()->address(),
             'description' => fake()->text(),
         ];
     }
